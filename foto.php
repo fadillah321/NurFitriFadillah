@@ -3,7 +3,7 @@ session_start();
 
 // Periksa apakah sesi pengguna telah ditetapkan
 if (!isset($_SESSION['user_id'])) {
-    // Jika tidak, arahkan pengguna kembali ke halaman login
+    // Jika tidak, arahkan pengguna ke halaman login
     header("Location: login.php");
     exit(); // Pastikan untuk keluar dari skrip setelah mengarahkan pengguna
 }
@@ -237,6 +237,7 @@ if (!isset($_SESSION['user_id'])) {
                             ?>
                         </td>
                         <td>
+                        <a href="?foto_id=<?=$data['foto_id']?>"><button type="submit" style="background-color: #B22222; padding: 5px 10px; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Hapus</button> 
                             <a href="edit_foto.php?foto_id=<?=$data['foto_id']?>"><button type="submit" style="background-color: #778899; padding: 5px 10px; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Edit</button>
                         </td>
                     </tr>

@@ -77,6 +77,12 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
     background-color: #FFF7A9;
             
 }
+.registrasi {
+            color: red;
+        }
+        .login {
+            color: green;
+        }
 
     </style>
 </head>
@@ -96,8 +102,11 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
 <div class="container">
     <!-- Peringatan untuk registrasi atau login -->
     <div class="alert alert-warning text-center" role="alert">
-        Jika Anda belum memiliki akun, Anda bisa <a href="register.php" class="alert-link">registrasi</a>. Jika sudah memiliki akun, Anda bisa <a href="login.php" class="alert-link">login</a> untuk mengunggah foto!!
-    </div>
+    Jika Anda belum memiliki akun, Anda bisa <a href="register.php" class="registrasi">REGRISTRASI</a> terlebih dahulu.<br>
+    Jika sudah memiliki akun, Anda bisa <a href="login.php" class="login">LOGIN</a> untuk mengunggah album dan melihat foto!!
+</div>
+
+
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php 

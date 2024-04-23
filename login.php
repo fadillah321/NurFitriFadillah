@@ -17,12 +17,12 @@ if (session_status() == PHP_SESSION_NONE) {
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
         body {
-            background-image: url('tema.jpg'); /* Ganti 'tema.jpg' dengan lokasi dan nama file gambar Anda */
+            background-image: url('tema.jpg'); /* Ganti 'gambar_background.jpg' dengan lokasi dan nama file gambar Anda */
             background-size: cover; /* Menyesuaikan gambar agar terisi seluruh area */
             background-repeat: no-repeat; /* Mencegah gambar diulang */
         }
         .login-form {
-            background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang form dengan opasitas */
+            background-color: #725E42; /* Warna latar belakang form dengan opasitas */
             padding: 20px; /* Padding untuk meningkatkan ruang di dalam form */
             border-radius: 10px; /* Mengatur sudut border-radius */
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Menambahkan bayangan untuk efek 3D */
@@ -44,7 +44,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5 login-form"> <!-- Tambahkan kelas 'login-form' di sini -->
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                 <div class="card-body">
                                     <form method="post">

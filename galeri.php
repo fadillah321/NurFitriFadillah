@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-
 // Periksa apakah pengguna sudah login
-if(isset($_SESSION['nama_lengkap'])) {
-    $nama_lengkap = $_SESSION['nama_lengkap'];
-    
-} else {
+if(!isset($_SESSION['nama_lengkap'])) {
     // Jika pengguna belum login, redirect ke halaman login
     header("Location: login.php");
     exit();
 }
+
 // Koneksi ke database
 $koneksi = mysqli_connect('localhost', 'root', '', 'dbgaleriw');
 
@@ -20,13 +17,14 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-// Query untuk mengambil data album
-$query_album = "SELECT * FROM album";
-$result_album = mysqli_query($koneksi, $query_album);
+// Query untuk mengambil data semua album beserta nama pengguna yang menambahkannya
+$query_album = "SELECT a.*, u.nama_lengkap AS nama_pengguna FROM album AS a JOIN user AS u ON a.user_id = u.user_id";
+$stmt_album = mysqli_prepare($koneksi, $query_album);
+mysqli_stmt_execute($stmt_album);
+$result_album = mysqli_stmt_get_result($stmt_album);
 
 // Array warna latar belakang untuk setiap kartu
 $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
-
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +35,7 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-          body {
+        body {
             background-color: #FFEBCD; /* Ganti dengan warna latar belakang yang Anda inginkan */
         }
         .navbar {
@@ -51,7 +49,6 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
         .navbar ul li a:hover {
             background-color: #3A2B2D;
         }
-
         .navbar-nav .nav-link {
             color: #fff; 
             font-size: 20px ;
@@ -89,7 +86,6 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                <li class="nav-item">
                     <a class="nav-link" href="dashboard.php">Home</a>
                 </li>
                 <li class="nav-item">
@@ -123,16 +119,16 @@ $colors = ["#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc", "#ffcccc"];
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row_album['nama_album']; ?></h5>
                         <p class="card-text"><?php echo $row_album['deskripsi']; ?></p>
+                        <p class="card-text">Ditambahkan oleh: <?php echo $row_album['nama_pengguna']; ?></p>
                         <a href="datafoto.php?album_id=<?php echo $row_album['album_id']; ?>" class="btn btn-primary" style="background-color: #8B4513; border-color: #8B4513;"> <span style='font-weight: bold;'>Lihat Foto</span></a>
-
                     </div>
                 </div>
             </div>
             <?php 
                 // Pindah ke warna latar belakang berikutnya atau kembali ke awal jika sudah mencapai akhir array
                 $index = ($index + 1) % count($colors); 
-            ?>
-        <?php endwhile; ?>
+            endwhile; 
+        ?>
     </div>
 </div>
 

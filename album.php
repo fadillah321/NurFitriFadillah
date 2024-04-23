@@ -172,18 +172,6 @@ if (!isset($_SESSION['user_id'])) {
             text-decoration: none;
             transition: background-color 0.3s;
         }
-        .btn-edit {
-            padding: 5px 10px;
-            background-color:  #8B4513;
-            border: none;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn-delete:hover,
         .btn-edit:hover {
             background-color:  #725E42;
         }
@@ -224,7 +212,7 @@ if (!isset($_SESSION['user_id'])) {
         <?php
             include "backend.php";
             
-            // Menampilkan data dalam tabel
+            // Menampilkan data semua album
             $sql = mysqli_query($conn, "SELECT * FROM album");
             echo "<table border='1'>
             <tr>
@@ -232,17 +220,23 @@ if (!isset($_SESSION['user_id'])) {
             <th>Nama Album</th> 
             <th>Deskripsi</th>
             <th>Tanggal Dibuat</th>
+            <th>Nama Pengguna</th>
             <th>Aksi</th>
             </tr>";
             
             while ($row = mysqli_fetch_assoc($sql)) {
+                // Mendapatkan nama pengguna yang menambahkan album
+                $user_id = $row['user_id'];
+                $user_query = mysqli_query($conn, "SELECT nama_lengkap FROM user WHERE user_id = $user_id");
+                $user = mysqli_fetch_assoc($user_query);
+                
                 echo "<tr>";
                 echo "<td>" . $row['album_id'] . "</td>";
                 echo "<td>" . $row['nama_album'] . "</td>";
                 echo "<td>" . $row['deskripsi'] . "</td>";
                 echo "<td>" . $row['tanggal_dibuat'] . "</td>";
+                echo "<td>" . $user['nama_lengkap'] . "</td>";
                 echo "<td> 
-                <a href='hapus_album.php?album_id=" . $row['album_id'] . "' class='btn-edit'>Hapus</a>
                         <a href='edit_album.php?album_id=" . $row['album_id'] . "' class='btn-edit'>Edit</a>
                     </td>";
                 echo "</tr>";
